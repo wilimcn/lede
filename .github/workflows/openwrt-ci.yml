@@ -49,7 +49,82 @@ jobs:
           ./scripts/feeds install -a
 
       - name: Generate configuration file
-        run: make defconfig
+        run: |
+          rm -f ./.config*
+          touch ./.config
+          #
+          # 在 cat >> .config <<EOF 到 EOF 之间粘贴你的编译配置, 需注意缩进关系
+          # 例如:
+          # 主题更换
+          sed -i 's/192.168.1.1/192.168.6.200/g' package/base-files/files/bin/config_generate
+          sed -i "s/OpenWrt /$(date +%Y.%m.%d) by WINAS /g" package/lean/default-settings/files/zzz-default-settings
+          
+          
+          # 常用LuCI插件选择:
+          cat >> .config <<EOF
+          CONFIG_PACKAGE_luci-app-socat=y
+          CONFIG_PACKAGE_luci-app-ssr-plus=y
+          CONFIG_PACKAGE_luci-app-tinyproxy=y
+          CONFIG_PACKAGE_luci-app-wolplus=y
+          EOF
+          #################################
+          # 编译x64固件:
+          cat >> .config <<EOF
+          CONFIG_TARGET_ramips=y
+          CONFIG_TARGET_ramips_mt7620=y
+          CONFIG_TARGET_ramips_mt7620_DEVICE_xiaomi_miwifi-mini=y
+          
+          EOF
+          # 固件压缩:
+          #cat >> .config <<EOF
+          #CONFIG_TARGET_IMAGES_GZIP=y
+          #CONFIG_KERNEL_BUILD_USER="OpenWrt-wi"
+          #CONFIG_KERNEL_BUILD_DOMAIN="Azure"
+          #EOF
+          ## 编译UEFI固件:
+          #cat >> .config <<EOF
+          #CONFIG_EFI_IMAGES=y
+          #EOF
+          # IPv6支持:
+          cat >> .config <<EOF
+          CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
+          CONFIG_PACKAGE_ipv6helper=y
+          EOF
+          # 多文件系统支持:
+          cat >> .config <<EOF
+          CONFIG_PACKAGE_kmod-fs-nfs=y
+          CONFIG_PACKAGE_kmod-fs-nfs-common=y
+          CONFIG_PACKAGE_kmod-fs-nfs-v3=y
+          CONFIG_PACKAGE_kmod-fs-nfs-v4=y
+          CONFIG_PACKAGE_kmod-fs-ntfs=y
+          CONFIG_PACKAGE_kmod-fs-squashfs=y
+          EOF
+          # LuCI主题:
+          cat >> .config <<EOF
+          CONFIG_PACKAGE_luci-theme-bootstrap=y
+
+          EOF
+          # 常用软件包:
+          cat >> .config <<EOF
+          CONFIG_PACKAGE_curl=y
+          #CONFIG_PACKAGE_htop=y
+          #CONFIG_PACKAGE_nano=y
+          #CONFIG_PACKAGE_screen=y
+          CONFIG_PACKAGE_tree=y
+          CONFIG_PACKAGE_vim-fuller=y
+          CONFIG_PACKAGE_wget=y
+          EOF
+          # 取消编译VMware镜像以及镜像填充 (不要删除被缩进的注释符号):
+          #cat >> .config <<EOF
+          # CONFIG_TARGET_IMAGES_PAD is not set
+          # CONFIG_VMDK_IMAGES is not set
+          #EOF
+           
+          
+          # ========================固件定制部分结束========================
+          # ===============================================================
+          sed -i 's/^[ \t]*//g' ./.config
+          make defconfig
 
       - name: Download packages
         run: make download -j16
