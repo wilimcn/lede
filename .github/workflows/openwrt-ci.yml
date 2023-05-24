@@ -121,8 +121,8 @@ jobs:
           CONFIG_PACKAGE_kmod-fs-squashfs=y
           EOF
           # LuCI主题:
-          cat >> .config <<EOF
-          CONFIG_PACKAGE_luci-theme-bootstrap=y
+          #cat >> .config <<EOF
+          #CONFIG_PACKAGE_luci-theme-bootstrap=y
 
           EOF
           # 常用软件包:
