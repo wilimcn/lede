@@ -91,14 +91,17 @@ jobs:
           CONFIG_PACKAGE_luci-app-tinyproxy=y
           CONFIG_PACKAGE_luci-app-openvpn=y
           CONFIG_PACKAGE_luci-app-wolplus=y
+          CONFIG_PACKAGE_luci-app-ddns-go=y
           EOF
           #################################
           # 编译x64固件:
           cat >> .config <<EOF
-          CONFIG_TARGET_ramips=y
-          CONFIG_TARGET_ramips_mt7620=y
-          CONFIG_TARGET_ramips_mt7620_DEVICE_xiaomi_miwifi-mini=y
-          
+          #CONFIG_TARGET_ramips=y
+          #CONFIG_TARGET_ramips_mt7620=y
+          #CONFIG_TARGET_ramips_mt7620_DEVICE_xiaomi_miwifi-mini=y
+          CONFIG_TARGET_x86=y
+          CONFIG_TARGET_x86_64=y
+          CONFIG_TARGET_x86_64_Generic=y         
           EOF
           # 固件压缩:
           #cat >> .config <<EOF
@@ -107,9 +110,9 @@ jobs:
           #CONFIG_KERNEL_BUILD_DOMAIN="Azure"
           #EOF
           ## 编译UEFI固件:
-          #cat >> .config <<EOF
-          #CONFIG_EFI_IMAGES=y
-          #EOF
+          cat >> .config <<EOF
+          CONFIG_EFI_IMAGES=y
+          EOF
           # IPv6支持:
           cat >> .config <<EOF
           CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
@@ -132,7 +135,7 @@ jobs:
           # 常用软件包:
           cat >> .config <<EOF
           CONFIG_PACKAGE_curl=y
-          #CONFIG_PACKAGE_htop=y
+          CONFIG_PACKAGE_htop=y
           #CONFIG_PACKAGE_nano=y
           #CONFIG_PACKAGE_screen=y
           CONFIG_PACKAGE_tree=y
