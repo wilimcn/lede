@@ -80,7 +80,7 @@ jobs:
           # 在 cat >> .config <<EOF 到 EOF 之间粘贴你的编译配置, 需注意缩进关系
           # 例如:
           # 主题更换
-          sed -i 's/192.168.1.1/192.168.6.200/g' package/base-files/files/bin/config_generate
+          sed -i 's/192.168.1.1/192.168.5.1/g' package/base-files/files/bin/config_generate
           sed -i "s/OpenWrt /$(date +%Y.%m.%d) by WINAS /g" package/lean/default-settings/files/zzz-default-settings
           
           
@@ -100,9 +100,9 @@ jobs:
           CONFIG_TARGET_ramips_mt7620=y
           CONFIG_TARGET_ramips_mt7620_DEVICE_xiaomi_miwifi-mini=y
           
-          CONFIG_HAS_TESTING_KERNEL=y
-          CONFIG_TESTING_KERNEL=y
-          CONFIG_LINUX_5_15=y
+          #CONFIG_HAS_TESTING_KERNEL=y
+          #CONFIG_TESTING_KERNEL=y
+          #CONFIG_LINUX_5_15=y
           #CONFIG_TARGET_x86=y
           #CONFIG_TARGET_x86_64=y
           #CONFIG_TARGET_x86_64_Generic=y         
