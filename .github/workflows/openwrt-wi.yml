@@ -8,7 +8,7 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  #CONFIG_FILE: .config
+  CONFIG_FILE: .config
   #DIY_P1_SH: diy-part1.sh
   #DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
@@ -17,7 +17,7 @@ env:
   UPLOAD_WETRANSFER: false
   UPLOAD_RELEASE: false
   TZ: Asia/Shanghai
-
+  
 jobs:
 
   build_openwrt:
@@ -131,11 +131,7 @@ jobs:
           CONFIG_PACKAGE_kmod-fs-ntfs=y
           CONFIG_PACKAGE_kmod-fs-squashfs=y
           EOF
-          # LuCI主题:
-          #cat >> .config <<EOF
-          #CONFIG_PACKAGE_luci-theme-bootstrap=y
-          #CONFIG_PACKAGE_luci-theme-argonne-config=y
-          #EOF
+
           # 常用软件包:
           cat >> .config <<EOF
           CONFIG_PACKAGE_curl=y
