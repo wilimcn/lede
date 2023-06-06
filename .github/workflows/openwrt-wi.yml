@@ -7,8 +7,8 @@ on:
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
-  #FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: .config
+  FEEDS_CONF: feeds.conf.default
+  #CONFIG_FILE: .config
   #DIY_P1_SH: diy-part1.sh
   #DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
@@ -89,8 +89,8 @@ jobs:
           CONFIG_PACKAGE_luci-app-ssr-plus=y
           CONFIG_PACKAGE_luci-app-tinyproxy=y
           CONFIG_PACKAGE_luci-app-openvpn=y
-          CONFIG_PACKAGE_luci-app-wolplus=y
-          CONFIG_PACKAGE_luci-app-ddns-go=y
+          #CONFIG_PACKAGE_luci-app-wolplus=y
+          #CONFIG_PACKAGE_luci-app-ddns-go=y
           EOF
           #################################
           # 编译x64固件:
@@ -99,9 +99,9 @@ jobs:
           CONFIG_TARGET_ramips_mt7620=y
           CONFIG_TARGET_ramips_mt7620_DEVICE_xiaomi_miwifi-mini=y
           
-          #CONFIG_HAS_TESTING_KERNEL=y
-          #CONFIG_TESTING_KERNEL=y
-          #CONFIG_LINUX_5_15=y
+          CONFIG_HAS_TESTING_KERNEL=y
+          CONFIG_TESTING_KERNEL=y
+          CONFIG_LINUX_5_15=y
           #CONFIG_TARGET_x86=y
           #CONFIG_TARGET_x86_64=y
           #CONFIG_TARGET_x86_64_Generic=y         
@@ -136,7 +136,7 @@ jobs:
           CONFIG_PACKAGE_curl=y
           CONFIG_PACKAGE_htop=y
           #CONFIG_PACKAGE_nano=y
-          #CONFIG_PACKAGE_screen=y
+          CONFIG_PACKAGE_screen=y
           CONFIG_PACKAGE_tree=y
           CONFIG_PACKAGE_vim-fuller=y
           CONFIG_PACKAGE_wget=y
